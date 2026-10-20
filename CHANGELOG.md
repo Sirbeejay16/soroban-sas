@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Indexer | `soroban_sas_indexer.wasm` | `TBD` |
 
 ### Added
+- Newest-first convenience reads for every lookup dimension:
+  `get_atts_by_recipient_recent`, `get_atts_by_schema_recent`, and
+  `get_atts_by_attester_recent` return the newest `limit` UIDs (newest
+  first) without a cursor, deriving the start position from the tail
+  counter and reading backward across chunk boundaries. The
+  `get_recipient_recent_filtered` / `get_schema_recent_filtered` /
+  `get_attester_recent_filtered` variants add `include_revoked` so the
+  active-only view keeps descending order while skipping revoked/replaced
+  UIDs. (#450)
 - Reverse cursor pagination for recipient, schema, and attester index lookups,
   with stable next cursors and bounded chunk reads. (#449)
 - Version 2 Axelar GMP proof payloads with EVM schema UID, EVM recipient,
