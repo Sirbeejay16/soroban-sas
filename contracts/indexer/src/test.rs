@@ -444,7 +444,7 @@ fn recent_reads_return_newest_first_and_agree_with_reverse_pages() {
     assert_eq!(client.get_count_by_recipient(&recipient), 0);
 
     for i in 0..total {
-        sas_client.relay_index(&indexer_id, &uid_at(i), &recipient, &schema, &attester);
+        sas_client.relay_index(&indexer_id, &uid_at(i), &recipient, &schema, &attester, &0);
     }
 
     // Unfiltered recent is newest-first and matches the reverse reader.
@@ -502,7 +502,7 @@ fn recent_filtered_skips_revoked_in_descending_order() {
         UID(BytesN::from_array(&env, &raw))
     };
     for i in 0..total {
-        sas_client.relay_index(&indexer_id, &uid_at(i), &recipient, &schema, &attester);
+        sas_client.relay_index(&indexer_id, &uid_at(i), &recipient, &schema, &attester, &0);
     }
     env.as_contract(&indexer_id, || {
         for i in (total - revoked)..total {
